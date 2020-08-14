@@ -1,8 +1,3 @@
-
-# coding: utf-8
-
-# In[57]:
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,9 +5,6 @@ from tkinter import *
 import tkinter as tk
 expense_file ="C:\\Users\\cam14\\Scripts\\Expense.csv"
 df = pd.read_csv(expense_file)
-
-
-# In[49]:
 
 def enter():
     global df
@@ -35,9 +27,6 @@ def enter():
                    'Memo':memo},ignore_index=True
                   )
     df.to_csv(expense_file,index=False)
-
-
-# In[9]:
 
 def update_filts():
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters
@@ -65,11 +54,6 @@ def update_filts():
     pay_filters = {'Discover':discover,'Debit':debit,'Red Card':red_card,
                    'Cash':cash,'Other':other_pay}
     
-
-
-
-# In[44]:
-
 def plots():
     update_filts()
     types = df['Payment Type'].unique().tolist()
@@ -171,4 +155,3 @@ main.create_window(300,560, window=new_wind)
 
 
 root.mainloop()
-
