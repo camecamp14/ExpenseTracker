@@ -3,10 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tkinter import *
 import tkinter as tk
-expense_file ="C:\\Users\\cam14\\Scripts\\Expense.csv"
+expense_file ="C:\\fakepath\\Expense.csv"
 df = pd.read_csv(expense_file)
 
 def enter():
+    """Takes input values from GUI and updates dataframe and csv file"""
     global df
     global pay_type
     global exp_type
@@ -29,6 +30,7 @@ def enter():
     df.to_csv(expense_file,index=False)
 
 def update_filts():
+    """Updates dataframe filters after new value is added"""
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters
     fast_food = df['Expense Type'] == 'Fast Food'
@@ -53,8 +55,24 @@ def update_filts():
     pay_types = ['Discover','Debit','Red Card','Cash','Other']
     pay_filters = {'Discover':discover,'Debit':debit,'Red Card':red_card,
                    'Cash':cash,'Other':other_pay}
+    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
+    
+    jan = df['Month']==1
+    feb = df['Month']==2
+    march = df['Month']==3
+    april = df['Month']==4
+    may = df['Month']==5
+    june = df['Month']==6
+    july = df['Month']==7
+    aug = df['Month']==8
+    sept = df['Month']==9
+    octo = df['Month']==10
+    nov = df['Month']==11
+    dec = df['Month']==12
+    month_filters={}
     
 def plots():
+    """Creats Pie Charts for total expenses by payment type and expense type"""
     update_filts()
     types = df['Payment Type'].unique().tolist()
     payment_type = []
@@ -81,9 +99,6 @@ def plots():
     fig.text(0.5, 1, txt, ha='center',fontsize=20)
     plt.show()
     fig.savefig("C:\\Users\\cam14\\Scripts\\Plots.png")  
-
-
-# In[50]:
 
 root = tk.Tk()
 
