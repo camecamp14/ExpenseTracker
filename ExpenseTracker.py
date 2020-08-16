@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tkinter import *
 import tkinter as tk
-expense_file ="C:\\fakepath\\Expense.csv"
-df = pd.read_csv(expense_file)
+expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
+df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
 
 def enter():
     """Takes input values from GUI and updates dataframe and csv file"""
@@ -27,10 +27,11 @@ def enter():
                     'Day':day,
                    'Memo':memo},ignore_index=True
                   )
-    df.to_csv(expense_file,index=False)
+    df.to_csv(expense_file,index=False) #rewrites and updates csv file with updated info
     
     def update_filts():
-    """Updates dataframe filters after new value is added"""
+    """Updates dataframe filters after new value is added. 
+    Creates filters that classify data by either expense type, payment type, or month of purchase"""
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters
     global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_month,month_filters
