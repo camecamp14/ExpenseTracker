@@ -33,7 +33,7 @@ def enter():
     """Updates dataframe filters after new value is added"""
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters
-    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
+    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_month,month_filters
     
     jan = df['Month']==1
     feb = df['Month']==2
@@ -47,6 +47,7 @@ def enter():
     octo = df['Month']==10
     nov = df['Month']==11
     dec = df['Month']==12
+    all_months = jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
     month_filters={'Jan':jan,'Feb':feb,'March':march,'April':april,'May':may,'June':june,
                   'July':july,'Aug':aug,'Sep':sept,'Oct':octo,'Nov':nov,'Dec':dec}
     
