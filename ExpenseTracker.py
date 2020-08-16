@@ -47,7 +47,8 @@ def enter():
     octo = df['Month']==10
     nov = df['Month']==11
     dec = df['Month']==12
-    month_filters={}
+    month_filters={'Jan':jan,'Feb':feb,'March':march,'April':april,'May':may,'June':june,
+                  'July':july,'Aug':aug,'Sep':sept,'Oct':octo,'Nov':nov,'Dec':dec}
     
     fast_food = df['Expense Type'] == 'Fast Food'
     grocery  = df['Expense Type'] == 'Grocery'
