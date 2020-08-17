@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tkinter import *
 import tkinter as tk
+import ExpenseReport
 expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
 df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
 
@@ -170,7 +171,7 @@ main.create_window(450,400,window=date)
 ent_but = tk.Button(root,text='Enter', height=3,width= 30, command=enter)
 main.create_window(300,500,window=ent_but)
 
-new_wind = tk.Button(root,text='Run Reports', height=3,width=30, command = plots_tot)
+new_wind = tk.Button(root,text='Run Reports', height=3,width=30, command = ExpenseReport.report_wind)
 main.create_window(300,560, window=new_wind)
 
 
