@@ -39,9 +39,9 @@ options.create_window(400,175,window=month_by_month_label)
 cat = StringVar(root)
 cat.set("Fast Food")
 
-cat_labels = tk.Label(root,text='Select Expense\nCatagory To View:')
+cat_labels = tk.Label(root,text='Select Expense Catagory To View:')
 cat_labels.config(font=('Verdana',12),bg=color)
-options.create_window(200,250,window=cat_labels)
+options.create_window(150,250,window=cat_labels)
 
 select_cat = OptionMenu(root, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Car','Rent','Other','All')
 select_cat.config(font=('Verdana', 10),bg='gray88')
@@ -49,5 +49,31 @@ options.create_window(400,250, window=select_cat)
 
 month_by_month_but=tk.Button(root,text = 'View',height=2,width= 20)
 options.create_window(650,250,window=month_by_month_but)
+
+cat = StringVar(root)
+cat.set("All")
+
+cat_labels = tk.Label(root,text='Select Expense Catagory:')
+cat_labels.config(font=('Verdana',12),bg=color)
+options.create_window(150,250,window=cat_labels)
+
+select_cat = OptionMenu(root, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Car','Rent','Other','All')
+select_cat.config(font=('Verdana', 10),bg='gray88')
+options.create_window(400,250, window=select_cat)
+
+pay_labels = tk.Label(root,text='Select Payment\nType:')
+pay_labels.config(font=('Verdana',12),bg=color)
+options.create_window(200,320,window=pay_labels)
+
+pay = StringVar(root)
+pay.set("All")
+
+select_pay = tk.OptionMenu(root, pay,"Discover", "Red Card", "Debit", "Cash", "Other",'All')
+select_pay.config(font=('Verdana', 10),bg='gray88')
+options.create_window(400,320,window=select_pay)
+
+month_by_month_but=tk.Button(root,text = 'View',height=3,width= 20)
+options.create_window(650,285,window=month_by_month_but)
+
 
 root.mainloop()
