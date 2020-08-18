@@ -3,10 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from tkinter import *
 import tkinter as tk
-import ExpenseReport
-expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
-df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
+from ExpenseReport import *
+def load_df():
+    expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
+    df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
 
+load_df()
+    
 def enter():
     """Takes input values from GUI and updates dataframe and csv file"""
     global df
