@@ -5,8 +5,10 @@ from tkinter import *
 import tkinter as tk
 from ExpenseReport import *
 def load_df():
+    global df
     expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
     df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
+    return df
 
 load_df()
     
