@@ -5,9 +5,9 @@ import pandas as pd
 from tkinter import *
 import tkinter as tk
 
-import ExpenseTracker
+from ExpenseTracker import load_df
 
-df= ExpenseTracker.df
+df= ExpenseTracker.load_df()
 
 def report_wind:
   win = tk.Tk()
