@@ -5,6 +5,10 @@ import pandas as pd
 from tkinter import *
 import tkinter as tk
 
+import ExpenseTracker
+
+df= ExpenseTracker.df
+
 def report_wind:
   win = tk.Tk()
   color='PeachPuff2'
@@ -75,6 +79,20 @@ def report_wind:
 
   month_by_month_but=tk.Button(win,text = 'View',height=3,width= 20)
   options.create_window(650,285,window=month_by_month_but)
+  
+  month_rep_label=tk.Label(win,text = 'Month To Date Reports')
+  month_rep_label.config(font=('Verdana',15),bg=color)
+  options.create_window(400,400,window=month_rep_label)
+    
+  exp_pie = tk.Button(win,text ='Expense Type\nPie Chart',height=3,width = 30)
+  options.create_window(250,475,window=exp_pie)
+    
+  pay_pie = tk.Button(win,text ='Payment Type\nPie Chart',height=3,width = 30)
+  options.create_window(550,475,window=pay_pie)
+    
+  exp_tot = tk.Label(win,text =('Total Expenses this Month: ${}').format(df['Amount'].sum().round(2)))
+  exp_tot.config(font=('Verdana',12),bg=color)
+  options.create_window(400,550,window=exp_tot)
 
 
   win.mainloop()
