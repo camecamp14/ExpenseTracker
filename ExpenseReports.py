@@ -90,9 +90,18 @@ def report_wind:
   pay_pie = tk.Button(win,text ='Payment Type\nPie Chart',height=3,width = 30)
   options.create_window(550,475,window=pay_pie)
     
-  exp_tot = tk.Label(win,text =('Total Expenses this Month: ${}').format(df['Amount'].sum().round(2)))
+  month = df['Month'].iloc[-1]
+    
+  exp_tot = tk.Label(test,text =('Total Expenses this Month: ${}').format(df[df['Month']==month]['Amount'].sum().round(2)))
   exp_tot.config(font=('Verdana',12),bg=color)
-  options.create_window(400,550,window=exp_tot)
-
-
+  options.create_window(400,500,window=exp_tot)
+    
+  last_month = df['Month'].iloc[-1]-1
+  if last_month ==0:
+      last_month =1
+    
+  exp_last=tk.Label(test,text =('Total Expenses Last Month: ${}').format(df[df['Month']==last_month]['Amount'].sum().round(2)))
+  exp_last.config(font=('Verdana',12),bg=color)
+  options.create_window(400,550,window=exp_last)
+  
   win.mainloop()
