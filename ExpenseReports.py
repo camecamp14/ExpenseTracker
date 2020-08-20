@@ -9,6 +9,25 @@ from ExpenseTracker import load_df
 
 df= ExpenseTracker.load_df()
 
+
+def pie(pay_exp,types,filters):
+    all_labels = df[pay_exp].unique().tolist()
+    labels = []
+    amounts = []
+    for label in types:
+        if label in all_labels:
+            labels.append(label)
+            amounts.append(df[filters[label]]['Amount'].sum())
+    plt.pie(amounts,shadow = True,labels=labels, startangle=180, autopct='%1.1f%%')
+    plt.show()
+    
+    
+def pie_exp():
+    pie('Expense Type',exp_types,exp_filters)
+
+def pie_pay():
+    pie('Payment Type',pay_types,pay_filters) 
+
 def report_wind:
   win = tk.Tk()
   color='PeachPuff2'
@@ -84,10 +103,10 @@ def report_wind:
   month_rep_label.config(font=('Verdana',15),bg=color)
   options.create_window(400,400,window=month_rep_label)
     
-  exp_pie = tk.Button(win,text ='Expense Type\nPie Chart',height=3,width = 30)
+  exp_pie = tk.Button(win,text ='Expense Type\nPie Chart',height=3,width = 30,command=pie_exp)
   options.create_window(250,475,window=exp_pie)
     
-  pay_pie = tk.Button(win,text ='Payment Type\nPie Chart',height=3,width = 30)
+  pay_pie = tk.Button(win,text ='Payment Type\nPie Chart',height=3,width = 30,command=pie_pay)
   options.create_window(550,475,window=pay_pie)
     
   month = df['Month'].iloc[-1]
