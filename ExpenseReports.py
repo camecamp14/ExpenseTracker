@@ -11,6 +11,7 @@ df= ExpenseTracker.load_df()
 
 
 def pie(pay_exp,types,filters):
+    update_filts()
     all_labels = df[pay_exp].unique().tolist()
     labels = []
     amounts = []
