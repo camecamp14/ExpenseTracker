@@ -38,7 +38,7 @@ def enter():
     def update_filts():
     """Updates dataframe filters after new value is added. 
     Creates filters that classify data by either expense type, payment type, or month of purchase"""
-    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters
+    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters
     global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_month,month_filters
     
@@ -68,7 +68,7 @@ def enter():
     household = df['Expense Type'] == 'Household Supplies'
     rent = df['Expense Type'] =='Rent'
     car = df['Expense Type'] == 'Car'
-    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other']
+    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent']
     exp_filters = {'Fast Food':fast_food,'Grocery':grocery,'Fun':fun,
                'Kayla':kayla,'Rent':rent,'Other':other_exp,'Pets':pets,
               'Household Supplies':household}
