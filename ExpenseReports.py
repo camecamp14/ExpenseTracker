@@ -9,19 +9,31 @@ from ExpenseTracker import load_df
 
 df= ExpenseTracker.load_df()
 
-
-def pie(pay_exp,types,filters):
+def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),compare = False):
     update_filts()
     all_labels = df[pay_exp].unique().tolist()
     labels = []
     amounts = []
     for label in types:
         if label in all_labels:
+            df[filters[label][df['Month']==month]]['Amount'].sum()
             labels.append(label)
             amounts.append(df[filters[label]]['Amount'].sum())
-    plt.pie(amounts,shadow = True,labels=labels, startangle=180, autopct='%1.1f%%')
+    if compare:
+        return labels, amounts
+    else:
+        plt.pie(amounts,shadow = True,labels=labels, startangle=180, autopct='%1.1f%%')
+        plt.show()
+        
+  def pie_compare():
+    labels1,amounts1= pie('Expense Type',exp_types,exp_filters,month1.get())
+    labels2,amounts2= pie('Expense Type',exp_types,exp_filters,month2.get())
+    lt.subplot(1,2,1)
+    plt.pie(amounts1,shadow = True,labels=labels1, startangle=180, autopct='%1.1f%%')
+    plt.subplot(1,2,2)
+    plt.pie(amounts2,shadow = True,labels=labels2, startangle=180, autopct='%1.1f%%')
+    fig.text(0.5, 1, txt, ha='center',fontsize=20)
     plt.show()
-    
     
 def pie_exp():
     pie('Expense Type',exp_types,exp_filters)
@@ -54,7 +66,7 @@ def report_wind:
   month_2 = tk.Entry(win)
   options.create_window(450,100,window=month_2)
 
-  compare_month_but = tk.Button(win,text = 'Compare Months',height=2,width= 20)
+  compare_month_but = tk.Button(win,text = 'Compare Months',height=2,width= 20,command=pie_compare)
   options.create_window(650,100,window=compare_month_but)
 
   month_by_month_label = tk.Label(win,text='Month By Month Expenses')
