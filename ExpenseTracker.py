@@ -35,11 +35,11 @@ def enter():
                   )
     df.to_csv(expense_file,index=False) #rewrites and updates csv file with updated info
     
-    def update_filts():
+def update_filts():
     """Updates dataframe filters after new value is added. 
     Creates filters that classify data by either expense type, payment type, or month of purchase"""
-    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent
-    global discover,debit,red_card,cash,other_pay,pay_types,pay_filters
+    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent,all_exp
+    global discover,debit,red_card,cash,other_pay,pay_types,pay_filters,all_pay
     global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_month,month_filters
     
     jan = df['Month']==1
@@ -68,10 +68,11 @@ def enter():
     household = df['Expense Type'] == 'Household Supplies'
     rent = df['Expense Type'] =='Rent'
     car = df['Expense Type'] == 'Car'
+    all_exp = fast_food|grocery|fun|kayla|bills|other_exp|pets|household|rent|car
     exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent']
     exp_filters = {'Fast Food':fast_food,'Grocery':grocery,'Fun':fun,
                'Kayla':kayla,'Rent':rent,'Other':other_exp,'Pets':pets,
-              'Household Supplies':household}
+              'Household Supplies':household,'All':all_exp}
     
     discover = df['Payment Type']=='Discover'
     debit = df['Payment Type'] =='Debit'
@@ -79,8 +80,9 @@ def enter():
     cash = df['Payment Type'] == 'Cash'
     other_pay = df['Payment Type'] == 'Other'
     pay_types = ['Discover','Debit','Red Card','Cash','Other']
+    all_pay = discover|debit|red_card|cash|other_pay
     pay_filters = {'Discover':discover,'Debit':debit,'Red Card':red_card,
-                   'Cash':cash,'Other':other_pay}
+                   'Cash':cash,'Other':other_pay,'All':all_pay}
     
 
 def plots_tot():
