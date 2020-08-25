@@ -14,9 +14,14 @@ def month_by_month():
     payment = str(pay.get())
     months = []
     amounts = []
+    filt = exp_filters[exp]|pay_filters[payment]
     for month in range(1,13):
+        df_month = df[df['Month']==month]            
+        update_filts(df_month)
         months.append(month)
-        amounts.append(df[df[exp_filters[exp][df['Month']==month](pay_filters[pay])]]['Amount'].sum())
+        amounts.append(df_month['Amount'].sum())
+    plt.plot(months,amounts)
+    plt.show()
 
 def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),compare = False):
     update_filts()
