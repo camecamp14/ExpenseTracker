@@ -35,7 +35,7 @@ def enter():
                   )
     df.to_csv(expense_file,index=False) #rewrites and updates csv file with updated info
     
-def update_filts():
+def update_filts(df=df):
     """Updates dataframe filters after new value is added. 
     Creates filters that classify data by either expense type, payment type, or month of purchase"""
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent,all_exp
