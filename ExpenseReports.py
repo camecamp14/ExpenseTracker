@@ -9,6 +9,15 @@ from ExpenseTracker import load_df
 
 df= ExpenseTracker.load_df()
 
+def month_by_month():
+    exp = str(cat.get())
+    payment = str(pay.get())
+    months = []
+    amounts = []
+    for month in range(1,13):
+        months.append(month)
+        amounts.append(df[df[exp_filters[exp][df['Month']==month](pay_filters[pay])]]['Amount'].sum())
+
 def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),compare = False):
     update_filts()
     all_labels = df[pay_exp].unique().tolist()
