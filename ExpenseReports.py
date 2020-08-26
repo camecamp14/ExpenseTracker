@@ -20,23 +20,6 @@ def update_filts(df=df):
     This function defaults to updating the filters for the main dataframe but can be used for any derivative"""
     global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,all_exp
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters,rent,all_pay
-    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_months
-    
-    jan = df['Month']==1
-    feb = df['Month']==2
-    march = df['Month']==3
-    april = df['Month']==4
-    may = df['Month']==5
-    june = df['Month']==6
-    july = df['Month']==7
-    aug = df['Month']==8
-    sept = df['Month']==9
-    octo = df['Month']==10
-    nov = df['Month']==11
-    dec = df['Month']==12
-    all_months = jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
-    month_filters={'Jan':jan,'Feb':feb,'March':march,'April':april,'May':may,'June':june,
-                  'July':july,'Aug':aug,'Sep':sept,'Oct':octo,'Nov':nov,'Dec':dec}
     
     fast_food = df['Expense Type'] == 'Fast Food'
     grocery  = df['Expense Type'] == 'Grocery'
