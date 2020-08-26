@@ -5,6 +5,7 @@ from tkinter import *
 import tkinter as tk
 from ExpenseReport import *
 def load_df():
+    """Loads expense csv file as a Pandas Dataframe which is accessable throughout the program"""
     global df
     expense_file ="C:\\fakepath\\Expense.csv" #csv file to which all data is saved
     df = pd.read_csv(expense_file) #loads data into a dataframe for analysis and manipulation
@@ -33,30 +34,13 @@ def enter():
                     'Day':day,
                    'Memo':memo},ignore_index=True
                   )
-    df.to_csv(expense_file,index=False) #rewrites and updates csv file with updated info
+    df.to_csv(expense_file,index=False) # rewrites and updates csv file with updated info
     
 def update_filts(df=df):
     """Updates dataframe filters after new value is added. 
     Creates filters that classify data by either expense type, payment type, or month of purchase"""
-    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent,all_exp
+    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,rent,all_exp,car
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters,all_pay
-    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_month,month_filters
-    
-    jan = df['Month']==1
-    feb = df['Month']==2
-    march = df['Month']==3
-    april = df['Month']==4
-    may = df['Month']==5
-    june = df['Month']==6
-    july = df['Month']==7
-    aug = df['Month']==8
-    sept = df['Month']==9
-    octo = df['Month']==10
-    nov = df['Month']==11
-    dec = df['Month']==12
-    all_months = jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
-    month_filters={'Jan':jan,'Feb':feb,'March':march,'April':april,'May':may,'June':june,
-                  'July':july,'Aug':aug,'Sep':sept,'Oct':octo,'Nov':nov,'Dec':dec}
     
     fast_food = df['Expense Type'] == 'Fast Food'
     grocery  = df['Expense Type'] == 'Grocery'
@@ -69,10 +53,10 @@ def update_filts(df=df):
     rent = df['Expense Type'] =='Rent'
     car = df['Expense Type'] == 'Car'
     all_exp = fast_food|grocery|fun|kayla|bills|other_exp|pets|household|rent|car
-    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent']
+    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent','Car']
     exp_filters = {'Fast Food':fast_food,'Grocery':grocery,'Fun':fun,
                'Kayla':kayla,'Rent':rent,'Other':other_exp,'Pets':pets,
-              'Household Supplies':household,'All':all_exp}
+              'Household Supplies':household,'All':all_exp,'Car':car}
     
     discover = df['Payment Type']=='Discover'
     debit = df['Payment Type'] =='Debit'
@@ -83,36 +67,7 @@ def update_filts(df=df):
     all_pay = discover|debit|red_card|cash|other_pay
     pay_filters = {'Discover':discover,'Debit':debit,'Red Card':red_card,
                    'Cash':cash,'Other':other_pay,'All':all_pay}
-    
-
-def plots_tot():
-    """Creats Pie Charts for total expenses by payment type and expense type"""
-    update_filts()
-    payments = df['Payment Type'].unique().tolist()
-    payment_type = []
-    payment_amount = []
-    for pay in pay_types:
-        if pay in payments:
-            payment_type.append(pay)
-            payment_amount.append(df[pay_filters[pay]]['Amount'].sum())
-    expenses = df['Expense Type'].unique().tolist()
-    exp_type = []
-    exp_amount = []
-    for exp in exp_types:
-        if exp in expenses:
-            exp_type.append(exp)
-            df[exp_filters[exp]]['Amount'].sum()
-            exp_amount.append(df[exp_filters[exp]]['Amount'].sum())
-    txt=('Total Expenses: ${}').format(df['Amount'].sum().round(2))
-    fig=plt.figure()
-    plt.subplot(1,2,1)
-    plt.pie(payment_amount,shadow = True,labels=payment_type, startangle=180, autopct='%1.1f%%')
-    plt.subplot(1,2,2)
-    plt.pie(exp_amount,shadow = True,labels=exp_type, startangle=180, autopct='%1.1f%%')
-    fig.text(0.5, 1, txt, ha='center',fontsize=20)
-    plt.show()
-    fig.savefig("C:\\Users\\cam14\\Scripts\\Plots.png") 
-
+      
 root = tk.Tk()
 
 color='PeachPuff2'
@@ -173,7 +128,6 @@ main.create_window(350,400, window=date_label)
 
 date = tk.Entry(root)
 main.create_window(450,400,window=date)
-
 
 ent_but = tk.Button(root,text='Enter', height=3,width= 30, command=enter)
 main.create_window(300,500,window=ent_but)
