@@ -1,3 +1,10 @@
+"""
+These functions serve the purpose of analysis and visualization of data from the expense tracking process. 
+It contains a GUI which provides different visualization options.
+This files is meant to be a compliment to ExpenseTracker.py and is not neccessary for its use as an expense tracker.
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -7,43 +14,100 @@ import tkinter as tk
 
 from ExpenseTracker import load_df
 
-df= ExpenseTracker.load_df()
+def update_filts(df=df):
+    """Updates dataframe filters matching boolean arrays. 
+    All variables are global as their updated value is used outside the function.
+    This function defaults to updating the filters for the main dataframe but can be used for any derivative"""
+    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,all_exp
+    global discover,debit,red_card,cash,other_pay,pay_types,pay_filters,rent,all_pay
+    global jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec,all_months
+    
+    jan = df['Month']==1
+    feb = df['Month']==2
+    march = df['Month']==3
+    april = df['Month']==4
+    may = df['Month']==5
+    june = df['Month']==6
+    july = df['Month']==7
+    aug = df['Month']==8
+    sept = df['Month']==9
+    octo = df['Month']==10
+    nov = df['Month']==11
+    dec = df['Month']==12
+    all_months = jan,feb,march,april,may,june,july,aug,sept,octo,nov,dec
+    month_filters={'Jan':jan,'Feb':feb,'March':march,'April':april,'May':may,'June':june,
+                  'July':july,'Aug':aug,'Sep':sept,'Oct':octo,'Nov':nov,'Dec':dec}
+    
+    fast_food = df['Expense Type'] == 'Fast Food'
+    grocery  = df['Expense Type'] == 'Grocery'
+    fun = df['Expense Type'] == 'Fun'
+    kayla  = df['Expense Type'] == 'Kayla'
+    bills = df['Expense Type'] == 'Bills'
+    other_exp  = df['Expense Type'] == 'Other'
+    pets = df['Expense Type']=='Pets'
+    household = df['Expense Type'] == 'Household Supplies'
+    rent = df['Expense Type'] =='Rent'
+    car = df['Expense Type'] == 'Car'
+    all_exp = fast_food|grocery|fun|kayla|bills|other_exp|pets|household|rent|car
+    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent']
+    exp_filters = {'Fast Food':fast_food,'Grocery':grocery,'Fun':fun,
+               'Kayla':kayla,'Rent':rent,'Other':other_exp,'Pets':pets,
+              'Household Supplies':household,'All':all_exp}
+    
+    discover = df['Payment Type']=='Discover'
+    debit = df['Payment Type'] =='Debit'
+    red_card = df['Payment Type'] == 'Red Card'
+    cash = df['Payment Type'] == 'Cash'
+    other_pay = df['Payment Type'] == 'Other'
+    pay_types = ['Discover','Debit','Red Card','Cash','Other']
+    all_pay = discover|debit|red_card|cash|other_pay
+    pay_filters = {'Discover':discover,'Debit':debit,'Red Card':red_card,
+                   'Cash':cash,'Other':other_pay,'All':all_pay}
+
+df= ExpenseTracker.load_df() #loads dataframe into file
 
 def month_by_month():
-    exp = str(cat.get())
-    payment = str(pay.get())
+    """Creates line plot of expenses per month. Can be filtered by either type of payment, expense or both"""
+    exp = str(cat.get()) #gets value of expense filter from GUI
+    payment = str(pay.get())# gets value of payment filter from GUI
     months = []
     amounts = []
-    filt = exp_filters[exp]|pay_filters[payment]
     for month in range(1,13):
         df_month = df[df['Month']==month]            
-        update_filts(df_month)
+        update_filts(df_month) #updates filters for monthly dataframe
+        filt = exp_filters[exp]|pay_filters[payment] # combines boolean filters selecting only wanted values
         months.append(month)
-        amounts.append(df_month['Amount'].sum())
+        amounts.append(df_month[filt]['Amount'].sum()) # sums all values from 'Amount' column from filtered dataframe
     plt.plot(months,amounts)
+    plt.title(('{} Expenses Using {} Payment Method').format(exp,payment))
+    plt.xtitle('Month')
+    plt.ytitle('Amount Spent')
+    update_filts() #resets filters to values from main dataframe
     plt.show()
 
-def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),compare = False):
-    update_filts()
-    all_labels = df[pay_exp].unique().tolist()
+def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),comapre = False):
+    """Creates pie chart from filtered data for specific month, using most recent as default"""
+    update_filts() #updates dataframe filter
+    all_labels = df[pay_exp].unique().tolist() #Collects all values of either payments or expenses present in dataframe
     labels = []
     amounts = []
-    for label in types:
-        if label in all_labels:
+    for label in types: #iterates through all expense or payment types
+        if label in all_labels: #updates labels and amounts with values if expense or payment type is in dataframe
             df[filters[label][df['Month']==month]]['Amount'].sum()
             labels.append(label)
             amounts.append(df[filters[label]]['Amount'].sum())
-    if compare:
+    if compare: #allows values to be used in other functions
         return labels, amounts
-    else:
+    else: #plots pie chart as default
         plt.pie(amounts,shadow = True,labels=labels, startangle=180, autopct='%1.1f%%')
         plt.show()
         
   def pie_compare():
+    """Creates two pie charts using the pie function"""
     month1 = int(month_1.get())
     month2 = int(month_2.get())
-    labels1,amounts1= pie('Expense Type',exp_types,exp_filters,month1)
-    labels2,amounts2= pie('Expense Type',exp_types,exp_filters,month2)
+    labels1,amounts1= pie('Expense Type',exp_types,exp_filters,month1,compare=True)
+    labels2,amounts2= pie('Expense Type',exp_types,exp_filters,month2,compare=True)
     plt.subplot(1,2,1)
     plt.title(('Expenses for Month {}').format(month1))
     plt.pie(amounts1,shadow = True,labels=labels1, startangle=180, autopct='%1.1f%%')
@@ -54,9 +118,11 @@ def pie(pay_exp,types,filters,month = (df['Month'].iloc[-1]),compare = False):
     plt.show()
     
 def pie_exp():
+    """Creates pie chart of monthly expenses by expense type"""
     pie('Expense Type',exp_types,exp_filters)
 
 def pie_pay():
+    """Creates pie chart of monthly expenses by pay type"""
     pie('Payment Type',pay_types,pay_filters) 
 
 def report_wind:
