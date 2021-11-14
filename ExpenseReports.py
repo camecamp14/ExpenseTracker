@@ -18,23 +18,22 @@ def update_filts(df=df):
     """Updates dataframe filters matching boolean arrays. 
     All variables are global as their updated value is used outside the function.
     This function defaults to updating the filters for the main dataframe but can be used for any derivative"""
-    global fast_food,grocery,fun,kayla,bills,other_exp,pets,household,exp_types,exp_filters,all_exp
+    global fast_food,grocery,fun,bills,other_exp,pets,household,exp_types,exp_filters,all_exp
     global discover,debit,red_card,cash,other_pay,pay_types,pay_filters,rent,all_pay
     
     fast_food = df['Expense Type'] == 'Fast Food'
     grocery  = df['Expense Type'] == 'Grocery'
     fun = df['Expense Type'] == 'Fun'
-    kayla  = df['Expense Type'] == 'Kayla'
     bills = df['Expense Type'] == 'Bills'
     other_exp  = df['Expense Type'] == 'Other'
     pets = df['Expense Type']=='Pets'
     household = df['Expense Type'] == 'Household Supplies'
     rent = df['Expense Type'] =='Rent'
     car = df['Expense Type'] == 'Car'
-    all_exp = fast_food|grocery|fun|kayla|bills|other_exp|pets|household|rent|car
-    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Bills','Other','Rent']
+    all_exp = fast_food|grocery|fun|bills|other_exp|pets|household|rent|car
+    exp_types = ['Fast Food','Grocery','Household Supplies','Pets','Fun','Bills','Other','Rent']
     exp_filters = {'Fast Food':fast_food,'Grocery':grocery,'Fun':fun,
-               'Kayla':kayla,'Rent':rent,'Other':other_exp,'Pets':pets,
+               Rent':rent,'Other':other_exp,'Pets':pets,
               'Household Supplies':household,'All':all_exp}
     
     discover = df['Payment Type']=='Discover'
@@ -147,7 +146,7 @@ def report_wind:
   cat_labels.config(font=('Verdana',12),bg=color)
   options.create_window(150,250,window=cat_labels)
 
-  select_cat = OptionMenu(win, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Car','Rent','Other','All')
+  select_cat = OptionMenu(win, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Car','Rent','Other','All')
   select_cat.config(font=('Verdana', 10),bg='gray88')
   options.create_window(400,250, window=select_cat)
 
@@ -161,7 +160,7 @@ def report_wind:
   cat_labels.config(font=('Verdana',12),bg=color)
   options.create_window(150,250,window=cat_labels)
 
-  select_cat = OptionMenu(win, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Kayla','Car','Rent','Other','All')
+  select_cat = OptionMenu(win, cat, 'Fast Food','Grocery','Household Supplies','Pets','Fun','Car','Rent','Other','All')
   select_cat.config(font=('Verdana', 10),bg='gray88')
   options.create_window(400,250, window=select_cat)
 
